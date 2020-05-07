@@ -1,0 +1,549 @@
+﻿<div class="col-12 d-none scrollingContent">
+
+    <div class="box-shadow text-right" style="padding:0;">
+
+        <input id="inputFormMainCode" type="hidden" class="text-box" value="" />
+
+        <div class="box-body">
+            <div class="titleBox">
+                <h1>اطلاعات مدرسه</h1>
+                <span></span>
+            </div>
+
+            <p class="hint">
+                اطلاعات مکانی مدرسه با توجه به داده های وزارت آموزش و پرورش در ادامه آمده است. خواهشمند است چنانچه موردی نیاز به اصلاح دارد با استفاده از گزینه "ویرایش" اقدام به تغییر آن نموده و سپس گزینه "ثبت/ ادامه" را کلیک نمائید.
+            </p>
+
+            <div class="container-fluid" style="direction:rtl;">
+
+                <div class="row">
+
+                    <div class="col-lg-6">
+
+                        <lable class="lable">کد مدرسه</lable>
+                        <div class="item-box-container">
+
+                            <div class="item-box">
+                                <div class="item-box-screen-text-box"></div>
+                                <input id="inputFormSchoolCode" type="text" class="text-box validate-number" value="" maxlength="9" />
+                            </div>
+
+                            <button class="btn-edit btn btn-sm btn-outline-primary mr-2">ویرایش</button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-6">
+
+                        <lable class="lable">نام مدرسه</lable>
+
+                        <div class="item-box-container">
+
+                            <div class="item-box">
+                                <div class="item-box-screen-text-box"></div>
+                                <input id="inputFormSchoolName" type="text" class="text-box" />
+                            </div>
+
+                            <button class="btn-edit btn btn-sm btn-outline-primary mr-2">ویرایش</button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-lg-6">
+
+                        <lable class="lable">نوع</lable>
+
+                        <div class="item-box-container">
+
+                            <div class="item-box">
+
+                                <div class="item-box-screen-select-box" style="z-index:1;"></div>
+
+                                <select id="ddSchoolSubSet" class="select2" style="width:100%;">
+
+                                    <option value="دولتي">دولتی</option>
+
+                                    <option value="غير دولتي">غیردولتی</option>
+
+                                    <option value="مشارکت مردمي">مشارکت مردمی</option>
+
+                                </select>
+                            </div>
+
+                            <button class="btn-edit btn btn-sm btn-outline-primary mr-2">ویرایش</button>
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-6">
+
+                        <lable class="lable">جنسیت</lable>
+
+                        <div class="item-box-container">
+
+                            <div class="item-box">
+
+                                <div class="item-box-screen-select-box"></div>
+
+                                <select id="ddSchoolGender" class="select2" style="width:100%;">
+                                    <option value="دخترانه">دخترانه</option>
+                                    <option value="پسرانه">پسرانه</option>
+                                    <option value="مختلط">مختلط</option>
+                                </select>
+
+                            </div>
+
+                            <button class="btn-edit btn btn-sm btn-outline-primary mr-2">ویرایش</button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-lg-6">
+
+                        <lable class="lable">نوبت تحصیلی</lable>
+                        <div class="item-box-container">
+
+                            <div class="item-box">
+                                <div class="item-box-screen-text-box"></div>
+                                <input id="txtStudyTime" type="text" class="text-box" />
+
+                            </div>
+
+                            <button class="btn-edit btn btn-sm btn-outline-primary mr-2">ویرایش</button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-6">
+
+                        <lable class="lable">دوره تحصیلی</lable>
+                        <div class="item-box-container">
+
+                            <div class="item-box">
+                                <div class="item-box-screen-text-box"></div>
+                                <input id="txtPeriod" type="text" class="text-box" value="" />
+
+                            </div>
+
+                            <button class="btn-edit btn btn-sm btn-outline-primary mr-2">ویرایش</button>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+
+                    <div class="col-lg-6">
+
+                        <lable class="lable">تعداد پایه تحصیلی</lable>
+                        <div class="item-box-container">
+
+                            <div class="item-box">
+                                <div class="item-box-screen-text-box"></div>
+                                <input id="numBasicCount" type="text" class="text-box validate-number" maxlength="2" />
+
+                            </div>
+
+                            <button class="btn-edit btn btn-sm btn-outline-primary mr-2">ویرایش</button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-6">
+
+                        <lable class="lable">تعداد معلم</lable>
+                        <div class="item-box-container">
+
+                            <div class="item-box">
+                                <div class="item-box-screen-text-box"></div>
+
+
+                                <input id="numTeacherCount" type="text" class="text-box validate-number" maxlength="4" />
+
+                            </div>
+
+                            <button class="btn-edit btn btn-sm btn-outline-primary mr-2">ویرایش</button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-lg-6">
+
+                        <lable class="lable">تعداد دانش آموزان</lable>
+                        <div class="item-box-container">
+
+                            <div class="item-box">
+                                <div class="item-box-screen-text-box"></div>
+                                <input id="numStudentCount" type="text" class="text-box validate-number" maxlength="4" />
+                            </div>
+
+                            <button class="btn-edit btn btn-sm btn-outline-primary mr-2">ویرایش</button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-6">
+                        <lable class="lable">تلفن 1</lable>
+                        <div class="item-box-container">
+
+                            <div class="item-box">
+                                <div class="item-box-screen-text-box"></div>
+
+                                <input id="txtTell1" type="text" class="text-box validate-number" maxlength="15" />
+                            </div>
+
+                            <button class="btn-edit btn btn-sm btn-outline-primary mr-2">ویرایش</button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-lg-6">
+
+                        <lable class="lable">تلفن 2</lable>
+                        <div class="item-box-container">
+
+                            <div class="item-box">
+                                <div class="item-box-screen-text-box"></div>
+
+                                <input id="txtTell2" type="text" class="text-box validate-number" maxlength="15" />
+                            </div>
+
+                            <button class="btn-edit btn btn-sm btn-outline-primary mr-2">ویرایش</button>
+
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+
+
+                        <lable class="lable">تلفن 3</lable>
+
+                        <div class="item-box-container">
+                            <div class="item-box">
+                                <div class="item-box-screen-text-box"></div>
+                                <input id="txtTell3" type="text" class="text-box validate-number" maxlength="15" />
+                            </div>
+                            <button class="btn-edit btn btn-sm btn-outline-primary mr-2">ویرایش</button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="row">
+
+                    <div class="col-lg-6">
+
+                        <lable class="lable">کد پستی</lable>
+
+                        <div class="item-box-container">
+                            <div class="item-box">
+                                <div class="item-box-screen-text-box"></div>
+                                <input id="txtPostalCode" type="text" class="text-box validate-number" maxlength="20" />
+                            </div>
+                            <button class="btn-edit btn btn-sm btn-outline-primary mr-2">ویرایش</button>
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-6">
+
+                        <lable class="lable">کد منطقه</lable>
+                        <div class="item-box-container">
+
+                            <div class="item-box">
+                                <div class="item-box-screen-text-box"></div>
+                                <input id="numAreaCode" type="text" class="text-box validate-number" maxlength="4" />
+                            </div>
+
+                            <button class="btn-edit btn btn-sm btn-outline-primary mr-2">ویرایش</button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-xl-6">
+
+                        <lable class="lable">نام منطقه</lable>
+                        <div class="item-box-container">
+
+                            <div class="item-box">
+                                <div class="item-box-screen-text-box"></div>
+                                <input id="txtAreaName" type="text" class="text-box" />
+                            </div>
+
+                            <button class="btn-edit btn btn-sm btn-outline-primary mr-2">ویرایش</button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-xl-6">
+
+                        <lable class="lable">اینترنت / سیار</lable>
+
+                        <div class="item-box-container">
+
+                            <div class="item-box">
+                                <div id="itemBoxScreenRoosta" class="item-box-screen-select-box"></div>
+
+                                <select id="ddMobileInternet" class="select2" style="width:100%;">
+                                    <option value="ندارد">ندارد</option>
+                                    <option value="همراه اول">همراه اول</option>
+                                    <option value="ایرانسل">ایرانسل</option>
+                                    <option value="رایتل">رایتل</option>
+                                    <option value="مبین نت">مبین نت</option>
+                                    <option value="شاتل">شاتل</option>
+                                    <option value="سایر">سایر</option>
+                                </select>
+
+                            </div>
+
+                            <button class="btn-edit btn btn-sm btn-outline-primary mr-2">ویرایش</button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-xl-6">
+
+                        <lable class="lable">اینترنت / ثابت</lable>
+
+                        <div class="item-box-container">
+
+                            <div class="item-box">
+
+                                <div id="itemBoxScreenRoosta" class="item-box-screen-select-box"></div>
+
+                                <select id="ddAdsl" class="select2" style="width:100%;">
+                                    <option value="ندارد">ندارد</option>
+                                    <option value="شاتل">شاتل</option>
+                                    <option value="پارس آنلاین">پارس آنلاین</option>
+                                    <option value="های وب">های وب</option>
+                                    <option value="آسیاتک">آسیاتک</option>
+                                    <option value="صبانت">صبانت</option>
+                                    <option value="لایزر">لایزر</option>
+                                    <option value="رهام داتک">رهام داتک</option>
+                                    <option value="مخابرات">مخابرات</option>
+                                    <option value="حلما گستر">حلما گستر</option>
+                                    <option value="فن آوا">فن آوا</option>
+                                    <option value="پیشگامان">پیشگامان</option>
+                                    <option value="سایر">سایر</option>
+                                </select>
+
+                            </div>
+
+                            <button id="btnRoosta" class="btn-edit btn btn-sm btn-outline-primary mr-2">ویرایش</button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-xl-6">
+
+
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-xl-4">
+
+                        <lable class="lable">عکس 1</lable>
+
+                        <label class="btn btn-outline-primary w-100">
+                            انتخاب عکس
+                            <input id="fileImage1" type="file" class="input-file" accept="image/x-png,image/gif,image/jpeg">
+                        </label>
+
+                        <div id="divImage1" class="div-picture">
+                        </div>
+
+                    </div>
+
+                    <div class="col-xl-4">
+
+                        <lable class="lable">عکس 2</lable>
+
+                        <label class="btn btn-outline-primary w-100">
+                            انتخاب عکس
+                            <input id="fileImage2" type="file" class="input-file" accept="image/x-png,image/gif,image/jpeg">
+                        </label>
+
+                        <div id="divImage2" class="div-picture">
+                        </div>
+
+                    </div>
+
+                    <div class="col-xl-4">
+
+                        <lable class="lable">عکس 3</lable>
+
+                        <label class="btn btn-outline-primary w-100">
+                            انتخاب عکس
+                            <input id="fileImage3" type="file" class="input-file" accept="image/x-png,image/gif,image/jpeg">
+                        </label>
+
+                        <div id="divImage3" class="div-picture">
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+
+                        <lable class="lable">توضیحات</lable>
+
+                        <div class="item-box-container">
+
+                            <div class="item-box">
+
+                                <div class="item-box-screen-area-box"></div>
+                                <textarea id="txtComment" rows="3" class="area-box" style="resize:none;"></textarea>
+
+                            </div>
+
+                            <button class="btn-edit btn btn-sm btn-outline-primary mr-2">ویرایش</button>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row m-top">
+                    <div class="col-12">
+                        <br />
+                        <br />
+
+                        <div style="display:flex;flex-direction:row-reverse;justify-content:space-between;">
+
+                            <button id="btnSaveForm" class="btn btn-lg btn-outline-primary">ادامه / ثبت</button>
+                            <button class="btn-prev btn btn-outline-warning btn-lg">برگشت</button>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+
+        
+
+        $("#btnSaveForm").on("click", function () {
+
+            resetEdit();
+            var displayParent = $(this).closest(".box-shadow").parent();
+            $(displayParent).addClass("d-none");
+            $(displayParent).next().removeClass("d-none");
+            nextStep(8);
+            $(window).scrollTop(0);
+
+            //***Map***
+            
+
+            $("#previewMap").html("");
+
+            try {
+                previewMap.remove();
+            } catch (e) {
+            }
+                
+            previewMap = L.map('previewMap', { scrollWheelZoom: true }).setView([mapLat, mapLng], 15);
+        
+            L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', { maxZoom: 20, subdomains: ['mt0', 'mt1', 'mt2', 'mt3'] }).addTo(previewMap);
+
+            var marker = L.layerGroup().addTo(previewMap);
+
+            L.marker([mapLat, mapLng]).addTo(marker);
+            //***End Map***
+
+            $("#previewSchoolCode").html($("#inputFormSchoolCode").val() + "&nbsp;");
+            $("#previewName").html($("#inputFormSchoolName").val() + "&nbsp;");
+            $("#previewSubset").html($("#ddSchoolSubSet").val() + "&nbsp;");
+            $("#previewGender").html($("#ddSchoolGender").val() + "&nbsp;");
+            $("#previewStudyTime").html($("#txtStudyTime").val() + "&nbsp;");
+            $("#previewPeriod").html($("#txtPeriod").val() + " ");
+            $("#previewBasicCount").html($("#numBasicCount").val() + "&nbsp;");
+            $("#previewTeacherCount").html($("#numTeacherCount").val() + "&nbsp;");
+            $("#previewStudentCount").html($("#numStudentCount").val() + "&nbsp;");
+            $("#previewTell1").html($("#txtTell1").val() + "&nbsp;");
+            $("#previewTell2").html($("#txtTell2").val() + "&nbsp;");
+            $("#previewTell3").html($("#txtTell3").val() + "&nbsp;");
+            $("#previewPostalCode").html($("#txtPostalCode").val() + "&nbsp;");
+            $("#previewMobileInternet").html($("#ddMobileInternet").val() + "&nbsp;");
+            $("#previewADSL").html($("#ddAdsl").val() + "&nbsp;");
+            $("#previewStudyTime").html($("#txtStudyTime").val() + "&nbsp;");
+
+            var image1 = $('#divImage1').css('background-image').trim();
+            $("#previewImage1").css('background-image',  image1 );
+
+            var image2 = $('#divImage2').css('background-image').trim();
+            $("#previewImage2").css('background-image', image2);
+
+            var image3 = $('#divImage3').css('background-image').trim();
+            $("#previewImage3").css('background-image', image3);
+
+            $("#previewComment").html($("#txtComment").val() + "&nbsp;");
+            $("#previewOstanName").html($("#ddOstan").text());
+            $("#previewShahrestanName").html($("#ddShahrestan").text());
+            $("#previewBakhshName").html($("#ddBakhsh").text());
+            $("#previewDehestanName").html($("#ddDehestan").text());
+            $("#previewAbadiName").html($("#ddRoosta").text());
+            $("#previewAmarcode").html($("#divAmarcode").html() + "&nbsp;");
+            $("#previewAreaCode").html($("#numAreaCode").val() + "&nbsp;");
+            $("#previewAreaName").html($("#txtAreaName").val() + "&nbsp;");
+            $("#previewAddress").html($("#txtSchoolAddress").val() + "&nbsp;");
+
+        });
+
+        $("#ddSchoolSubSet,#ddSchoolGender,#ddMobileInternet,#ddAdsl").select2({
+            dir: "rtl",
+            minimumResultsForSearch: -1,
+            width: 'resolve'
+        });
+
+    </script>
+
+</div>
+

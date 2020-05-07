@@ -1,0 +1,515 @@
+﻿@model CaptchaVM
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html dir="rtl">
+
+<head>
+
+    <meta name="viewport" content="width=device-width" />
+
+    <title>سامانه به روزرسانی اطلاعات مدارس سراسر کشور</title>
+
+    <partial name="HeaderReference" />
+
+</head>
+
+<body>
+    <div class="blurryBg"></div>
+    <img src="~/Pic/overlay.png" class="bgOverlay"/>
+    <script>
+
+        var schoolsManager = { Mobile: "", Name: "", NationalCode: "" };
+
+        var schoolsInfo = {};
+
+        var gridData = [];
+
+        var mymap;
+
+        var mapLat = 0;
+
+        var mapLng = 0;
+
+        var token = "";
+
+        var previewMap;
+
+        var currentStep = 1;
+
+    </script>
+
+    <partial name="Header" />
+
+    <div class="container-fluid containerHandle">
+
+        <div class="row d-none d-md-block">
+
+            <div class="col-12 text-center">
+
+                <ul class="step-line" style="direction:rtl;margin-top:30px;margin-bottom: 2rem">
+                    <li id="step1" class="active">1</li>
+                    <li id="step2">2</li>
+                    <li id="step3">3</li>
+                    <li id="step4">4</li>
+                    <li id="step5">5</li>
+                    <li id="step6">6</li>
+                    <li id="step7">7</li>
+                    <li id="step8">8</li>
+                </ul>
+
+                <div class="guideBox">
+                    <p style="font-family:behdad;" id="guidboxText">پذیرش</p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <partial name="IndexPartial/Agreement" />
+
+        <partial name="IndexPartial/LoginByMobile" />
+
+        <partial name="IndexPartial/LoginSmsCode" />
+
+        <partial name="IndexPartial/ManagerInfo" />
+
+        <partial name="IndexPartial/School" />
+
+        <partial name="IndexPartial/SchoolAddress" />
+
+        <partial name="IndexPartial/SchoolForm" />
+
+        <partial name="IndexPartial/SchoolPreview" />
+
+    </div>
+
+    <script>
+
+        function nextStep(step) {
+
+            currentStep = step;
+            $("#step1").removeClass("active");
+            $("#step2").removeClass("active");
+            $("#step3").removeClass("active");
+            $("#step4").removeClass("active");
+            $("#step5").removeClass("active");
+            $("#step6").removeClass("active");
+            $("#step7").removeClass("active");
+            $("#step8").removeClass("active");
+
+            $("#step" + currentStep).addClass("active");
+
+            switch (step) {
+                case 1:
+                    $("#guidboxText").html("پذیرش");
+                    break;
+                case 2:
+                    $("#guidboxText").html("احراز هویت");
+                    break;
+                case 3:
+                    $("#guidboxText").html("کد تائید");
+                    break;
+                case 4:
+                    $("#guidboxText").html("مشخصات مدیر");
+                    break;
+                case 5:
+                    $("#guidboxText").html("لیست مدارس");
+                    break;
+                case 6:
+                    $("#guidboxText").html("آدرس مدرسه");
+                    break;
+                case 7:
+                    $("#guidboxText").html("اطلاعات مدرسه");
+                    break;   
+                case 8:
+                    $("#guidboxText").html("ثبت نهایی");
+                    break;           
+                default:
+                    $("#guidboxText").html("");
+                    break;
+            }
+
+        }
+
+        function prevStep() {
+
+            currentStep -= 1;
+            $("#step1").removeClass("active");
+            $("#step2").removeClass("active");
+            $("#step3").removeClass("active");
+            $("#step4").removeClass("active");
+            $("#step5").removeClass("active");
+            $("#step6").removeClass("active");
+            $("#step7").removeClass("active");
+            $("#step8").removeClass("active");
+
+            $("#step" + currentStep).addClass("active");
+
+            switch (currentStep) {
+                case 1:
+                    $("#guidboxText").html("پذیرش");
+                    break;
+                case 2:
+                    $("#guidboxText").html("احراز هویت");
+                    break;
+                case 3:
+                    $("#guidboxText").html("کد تائید");
+                    break;
+                case 4:
+                    $("#guidboxText").html("مشخصات مدیر");
+                    break;
+                case 5:
+                    $("#guidboxText").html("لیست مدارس");
+                    break;
+                case 6:
+                    $("#guidboxText").html("آدرس مدرسه");
+                    break;
+                case 7:
+                    $("#guidboxText").html("اطلاعات مدرسه");
+                    break;
+                case 8:
+                    $("#guidboxText").html("ثبت نهایی");
+                default:
+                    $("#guidboxText").html("");
+                    break;
+            }
+
+        }
+
+        $(".btn-edit").on("click", function () {
+
+            $(this).prev().children().first().addClass("d-none");
+            $(this).prev().children().eq(1).focus();
+
+        });
+
+        $(".btn-prev").on("click", function () {
+
+            resetEdit();
+            prevStep();
+            var displayParent = $(this).closest(".box-shadow").parent();
+            $(displayParent).addClass("d-none");
+            $(displayParent).prev().removeClass("d-none");
+
+        });
+
+        function resetEdit() {
+            $(".item-box-screen-text-box").removeClass("d-none");
+            $(".item-box-screen-area-box").removeClass("d-none");
+            $(".item-box-screen-select-box").removeClass("d-none");
+
+            $("#btnAcceptSmsCode").html("ثبت / ادامه");
+            $("#btnAcceptSmsCode").attr("disabled", false);
+
+            $("#btnSendSmsCode").html("ارسال کد تائید به تلفن همراه");
+            $("#btnSendSmsCode").attr("disabled", false);
+
+            $(".btnEdit").html("ویرایش");
+            $(".btnEdit").attr("disabled", false);
+
+            $("#btnFinalSave").html("ثبت نهایی");
+            $("#btnFinalSave").attr("disabled", false);
+        }
+
+        $('.input-file').on('change', function (event) {
+
+            var selectedFile = event.target.files[0];
+            var reader = new FileReader();
+
+            var imgTag = $(this).parent().next();
+
+            reader.onload = function (e) {
+                $(imgTag).css('background-image', 'url(' + e.target.result + ')');
+            };
+
+            reader.readAsDataURL(selectedFile);
+
+        });
+
+    </script>
+
+
+    <script>
+
+        $('.validate-number').on('keypress', function (e) {
+            keys = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+            return keys.indexOf(event.key) > -1
+        })
+
+        $('.validate-number').on('paste', function (e) {
+            e.preventDefault();
+        })
+
+    </script>
+
+    <script>
+
+        function fillSchoolGrid(gridData) {
+
+            $("#grid").kendoGrid({
+                dataSource: {
+                    data: gridData,
+                    schema: {
+                        model: {
+                            fields: {
+                                Code: { type: "number" },
+                                Name: { type: "string" },
+                                Ostan: { Type: "string" },
+                                IsCity: { Type: "string" },
+                                //Shahrestan: { Type: "string" },
+                                //Bakhsh: { Type: "string" },
+                                //Dehestan: { Type: "string" },
+                                //Abadi: {Type : "string"},
+                                Status: { type: "string" }
+                            }
+                        }
+                    },
+                    pageSize: 10
+                },
+                height: 350,
+                scrollable: true,
+                sortable: true,
+                pageable: true,
+                columns: [
+
+                    { field: "Name", title: "نام مدرسه", width: "100px", attributes: { style: "text-align:center;" } },
+                    { field: "Ostan", title: "استان", width: "50px", attributes: { style: "text-align:center;" } },
+                    { field: "IsCity", title: "محل استقرار", width: "70px", attributes: { style: "text-align:center;" } },
+                    //{ field: "Shahrestan", title: "شهرستان", width: "50px" },
+                    //{ field: "Bakhsh", title: "بخش", width: "50px" },
+                    //{ field: "Dehestan", title: "دهستان", width: "50px" },
+                    //{ field: "Abadi", title: "روستا", width: "50px" },
+                    {
+                        field: "Status",
+                        title: "وضعیت",
+                        width: "100px",
+                        template: function (item) {
+
+                            if (item.Status == 0) {
+                                return "<div class='SchoolStatus' style='color:#ffc107'>در انتظار ویرایش</div>";
+                                @* return "<div class='SchoolStatus' style='background-color:#ffc107;color:#212529;'>در انتظار ویرایش</div>"; *@
+                            }
+                            else if (item.Status == 1) {
+                                return "<div class='SchoolStatus' style='color:#adb5bd;'>در انتظار تایید موقعیت</div>";
+                                @* return "<div class='SchoolStatus' style='background-color:#adb5bd;color:#212529;'>در انتظار تایید موقعیت</div>"; *@
+                            }
+                            else if (item.Status == 2) {
+                                return "<div class='SchoolStatus' style='color:#495057;'>در انتظار تایید اطلاعات</div>";
+                                @* return "<div class='SchoolStatus' style='background-color:#495057;'>در انتظار تایید اطلاعات</div>"; *@
+                            }
+                            else if (item.Status == 3) {
+                                return "<div class='SchoolStatus' style='color:#212529;'>در انتظار تایید اطلاعات و موقعیت</div>";
+                                @* return "<div class='SchoolStatus' style='background-color:#212529;'>در انتظار تایید اطلاعات و موقعیت</div>"; *@
+                            }
+                            else if (item.Status == 4) {
+                                return "<div class='SchoolStatus' style='color:#28a745;'>تایید نهایی</div>";
+                                @* return "<div class='SchoolStatus' style='background-color:#28a745;'>تایید نهایی</div>"; *@
+                            }
+                            else if (item.Status == 5) {
+                                return "<div class='SchoolStatus' style='color:#dc3545;'>رد شده</div>";
+                                @* return "<div class='SchoolStatus' style='background-color:#dc3545;'>رد شده</div>"; *@
+                            }
+                        }
+                    },
+                    { template: "<button class='gridEditBtn btn d-block m-auto'>ویرایش</button>", attributes: { style: "text-align:center;" }, title: "عملیات", width: "80px" }
+                ]
+            });
+
+
+            $("#grid").on("click", ".gridEditBtn", function () {
+
+                resetEdit();
+
+                var row = $(this).closest("tr");
+                var grid = $("#grid").getKendoGrid();
+                var rowItem = grid.dataItem(row);
+                var mainCode = rowItem.Code;
+
+
+                $(this).attr("disabled", true);
+                $(this).html('در حال پردازش <div class="spinner-grow text-primary" role="status"></div>')
+
+                $.ajax({
+                    headers: {
+                        "Authorization": token
+                    },
+                    url: "/Home/GetSchoolByMainCode?mainCode=" + mainCode,
+                    method: "Get",
+                    success: function (school) {
+
+                        //1
+                        var tmp = school[0].Ostan_Name;
+                        if (tmp == null || tmp.toLowerCase() == 'null' || tmp.trim() == '') {
+                            tmp = 'فاقد اطلاعات';
+                        }
+                        var newOption = new Option(tmp, school[0].AmarCode.substring(0, 6), false, false);
+                        $('#ddOstan').html("");
+                        $('#ddOstan').append(newOption).trigger('change');
+
+                        //2
+                        tmp = school[0].Shahrestan_Name;
+                        if (tmp == null || tmp.toLowerCase() == 'null' || tmp.trim() == '') {
+                            tmp = 'فاقد اطلاعات';
+                        }
+                        newOption = new Option(tmp, school[0].AmarCode.substring(0, 8), false, false);
+                        $('#ddShahrestan').html("");
+                        $('#ddShahrestan').append(newOption).trigger('change');
+
+                        //3
+                        tmp = school[0].Bakhsh_Name;
+                        if (tmp == null || tmp.toLowerCase() == 'null' || tmp.trim() == '') {
+                            tmp = 'فاقد اطلاعات';
+                        }
+                        newOption = new Option(tmp, school[0].AmarCode.substring(0, 10), false, false);
+                        $('#ddBakhsh').html("");
+                        $('#ddBakhsh').append(newOption).trigger('change');
+
+                        //4
+                        tmp = school[0].Dehestan_Name;
+                        if (tmp == null || tmp.toLowerCase() == 'null' || tmp.trim() == '') {
+                            tmp = 'فاقد اطلاعات';
+                        }
+                        newOption = new Option(tmp, school[0].AmarCode.substring(0, 14), false, false);
+                        $('#ddDehestan').html("");
+                        $('#ddDehestan').append(newOption).trigger('change');
+
+                        //5
+                        tmp = school[0].Abadi_Name;
+                        if (tmp == null || tmp.toLowerCase() == 'null' || tmp.trim() == '') {
+                            tmp = 'فاقد اطلاعات';
+                        }
+                        newOption = new Option(tmp, school[0].AmarCode.substring(0, 23), false, false);
+                        $('#ddRoosta').html("");
+                        $('#ddRoosta').append(newOption).trigger('change');
+
+                        $('#ddMobileInternet').val(school[0].MobileInternet);
+                        $('#ddMobileInternet').trigger('change');
+
+                        $('#ddAdsl').val(school[0].Adsl);
+                        $('#ddAdsl').trigger('change');
+
+                        $('#divAmarcode').html(school[0].AmarCode);
+
+                        $("#txtSchoolAddress").val(school[0].Address);
+                        $("#txtAreaName").val(school[0].AreaName);
+                        $("#numAreaCode").val(school[0].AreaCode);
+
+                        //Form School
+                        $("#inputFormSchoolCode").val(school[0].SchoolCode);
+                        $("#inputFormMainCode").val(school[0].MainCode);
+                        $("#inputFormSchoolName").val(school[0].Name);
+                        //$("#schoolAddressHeader").html(school[0].Name);
+
+                        $('#ddSchoolSubSet').val(school[0].SubSet);
+                        $('#ddSchoolSubSet').trigger('change');
+
+                        $('#ddSchoolGender').val(school[0].Gender);
+                        $('#ddSchoolGender').trigger('change');
+
+                        $('#txtStudyTime').val(school[0].StudyTime);
+                        $('#txtPeriod').val(school[0].Period);
+                        $('#numTeacherCount').val(school[0].TeacherCount);
+                        $('#numStudentCount').val(school[0].StudentCount);
+                        $('#numBasicCount').val(school[0].BasicCount);
+                        $('#txtTell1').val(school[0].Tell1);
+                        $('#txtTell2').val(school[0].Tell2);
+                        $('#txtTell3').val(school[0].Tell3);
+                        $('#txtPostalCode').val(school[0].PostalCode);
+                        $('#txtComment').val(school[0].Comment);
+
+                        $('#divImage1').css('background-image', '');
+                        $('#divImage2').css('background-image', '');
+                        $('#divImage3').css('background-image', '');
+
+                        if (school[0].Image1 != null)
+                            $('#divImage1').css('background-image', 'url(' + school[0].Image1 + ')');
+
+                        if (school[0].Image2 != null)
+                            $('#divImage2').css('background-image', 'url(' + school[0].Image2 + ')');
+
+                        if (school[0].Image3 != null)
+                            $('#divImage3').css('background-image', 'url(' + school[0].Image3 + ')');
+
+                        var displayParent = $("#schoolBoxShadow").parent();
+
+                        $(displayParent).addClass("d-none");
+
+                        $(displayParent).next().removeClass("d-none");
+
+                        $(window).scrollTop(0);
+
+                        nextStep(6);
+
+                        //Load Map
+
+                        $("#mapid").html("");
+
+                        try {
+                            mymap.remove();
+                        } catch (e) {
+                        }
+
+                        mymap = L.map('mapid', { scrollWheelZoom: true }).setView([school[0].Lat, school[0].Lng], 15);
+
+                        L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', { maxZoom: 20, subdomains: ['mt0', 'mt1', 'mt2', 'mt3'] }).addTo(mymap);
+
+                        //Add Marker
+                        var marker = L.layerGroup().addTo(mymap);
+
+                        L.marker([school[0].Lat, school[0].Lng]).addTo(marker);
+                        mapLat = school[0].Lat;
+                        mapLng = school[0].Lng;
+
+                        mymap.on('click', function (e) {
+
+                            marker.clearLayers();
+
+                            L.marker([e.latlng.lat, e.latlng.lng]).addTo(marker);
+
+                            mapLat = e.latlng.lat;
+                            mapLng = e.latlng.lng;
+
+                        });
+
+                    },
+                    error: function (err) {
+                        if (err.status == 401) {
+
+                            Swal.fire({
+                                title: '',
+                                html: "<span style='font-family:Behdad;'><span style='font-size:18px;'>مدت زمان دسترسی شما به اتمام رسیده است لطفاً مجدد وارد سامانه شوید</span></span>",
+                                type: 'error',
+                                showCancelButton: false,
+                                showConfirmButton: false,
+                                onClose: () => {
+                                    location.reload();
+                                }
+                            });
+                        }
+                        else {
+                            Swal.fire({
+                                title: '',
+                                html: "<span style='font-family:Behdad;'><span style='font-size:18px;'>" + "خطا رخ داده است" + "</span></span>",
+                                type: 'error',
+                                showCancelButton: false,
+                                showConfirmButton: false,
+                            });
+                        }
+                    }
+                });
+
+            });
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

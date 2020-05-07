@@ -1,0 +1,148 @@
+﻿<div class="col-12 d-none">
+    <input id="hiddenPublicKey" type="hidden" />
+    <div id="LoginByMobileBoxShadow" class="box-shadow">
+        <div class="container-fluid p-0">
+             <div class="row">
+                 <div class="col-xl-6 col-12">
+                    <div class="rightSide">
+                        <div class="titleBox">
+                            <h1>ورود به سامانه بروزرسانی اطلاعت مدارس</h1>
+                            <span></span>
+                        </div>
+                        <div class="inputBox">
+                            <input id="txtManagerMobile" class="text-box validate-number" placeholder="شماره تلفن همراه خود را وارد کنید" maxlength="11" value="">
+                            <img src="~/Pic/mobile.png" />
+                        </div>
+                        <p style="color:rgb(135,135,135);font-size:13px;margin:3px 10px 2rem 0;text-align:right;">لطفاً تلفن همراه را با صفر وارد کنید مانند 09127893744</p>
+
+                        <div class="inputBox" style="margin-bottom: 2rem">
+                            <input id="txtCaptcha" class="text-box validate-number" placeholder="لطفاٌ کد امنیتی تصویر را وارد کنید" maxlength="8" />
+                            <img src="~/Pic/key.png" />
+                        </div>
+
+                        <div id="imgCaptchaWait" style="display:flex;align-items:center;">
+                            <div  class="spinner-border text-primary m-auto" role="status">
+                                <span class="sr-only"></span>
+                            </div>
+                        </div>
+
+                        <div id="parentCaptcha" class="d-none" style="text-align:center;">
+                            <img id="imgRefresh"  src="~/refresh.png" style="width:32px;height:32px;cursor:pointer;" />
+                            <img id="imgCaptcha" class="img-fluid" style="height:45px;margin:auto;border:1px solid gray;" />
+                        </div>
+                        <br />
+                        <button id="btnSendSmsCode" class="btn btn-lg btn-outline-primary cetnerBtn">دریافت کد تایید</button>
+                    </div>
+                 </div>
+                 <div class="col-xl-6 d-none d-xl-block" style="position: relative;">
+                    <partial name="IndexPartial/LeftSide" />
+                 </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        var interval;
+
+        $("#btnSendSmsCode").on("click", function () {
+
+            var captcha = $("#txtCaptcha").val();
+            var publicKey = $("#hiddenPublicKey").val();
+            var mobile = $("#txtManagerMobile").val();
+
+            $(this).attr("disabled", true);
+            $(this).html('در حال پردازش <div class="spinner-grow text-primary" role="status"></div>')
+
+            $.ajax({
+                url: "/Home/CheckExistMobile?publicKey=" + publicKey + "&captcha=" + captcha + "&mobile=" + mobile,
+                method: "GET",
+                success: function () {
+
+                    resetEdit();
+
+                    schoolsManager.Mobile = $("#txtManagerMobile").val();
+
+                    var row = $("#LoginByMobileBoxShadow").parent();
+                    $(row).addClass("d-none");
+                    $(row).next().removeClass("d-none");
+                    $(window).scrollTop(0);
+                    $("#imgSms").effect("shake", { times: 4 }, 400);
+                    nextStep(3);
+
+                    setTimeout(function () {
+
+                        var countdownNumberEl = document.getElementById('countdown-number');
+                        var countdown = 60;
+
+                        countdownNumberEl.textContent = countdown;
+
+                        clearInterval(interval);
+
+                        interval = setInterval(function () {
+
+                            if (countdown <= 0) {
+                                clearInterval(interval);
+                                $("#countdown").css("display", "none");
+                            }
+                            else {
+                                countdown = countdown - 1;
+                            }
+                            countdownNumberEl.textContent = countdown;
+                        }, 1000);
+
+                    }, 400);
+
+                },
+                error: function (err) {
+
+                    resetEdit();
+
+                    Swal.fire({
+                        title: '',
+                        html: "<span style='font-family:Behdad;'><span style='font-size:18px;'>" + err.responseText + "</span></span>",
+                        type: 'error',
+                        showCancelButton: false,
+                        showConfirmButton: false
+                    });
+
+
+                }
+            });
+
+        });
+
+        $("#btnRefreshCaptcha").attr("disabled", true);
+        $("#btnRefreshCaptcha").html('در حال پردازش <div class="spinner-grow text-primary" role="status"></div>')
+
+        $("#imgRefresh").on("click", function () {
+
+            $("#parentCaptcha").addClass("d-none");
+            $("#imgCaptchaWait").removeClass("d-none");
+
+            $.ajax({
+                url: '/Home/Captcha',
+                method: 'GET',
+                success: function (res) {
+                    $("#imgCaptcha").prop("src", res.image);
+                    $("#hiddenPublicKey").val(res.publicKey);
+
+                    $("#imgCaptchaWait").addClass("d-none");
+                    $("#parentCaptcha").removeClass("d-none");
+                },
+                error: function (err) {
+                    Swal.fire({
+                        title: '',
+                        html: "<span style='font-family:Behdad;'><span style='font-size:18px;'>دریافت کد امنیتی امکان پذیر نمی باشد</span></span>",
+                        type: 'error',
+                        showCancelButton: false,
+                        showConfirmButton: false
+                    });
+
+                }
+            });
+
+        });
+
+    </script>
+</div>

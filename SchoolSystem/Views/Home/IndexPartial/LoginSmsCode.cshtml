@@ -1,0 +1,159 @@
+﻿
+
+<div class="col-12 d-none">
+    <style>
+    #countdown {
+        position: relative;
+        margin: auto;
+        height: 80px;
+        width: 80px;
+        text-align: center;
+        font-size: 25px;
+            margin: 1rem auto;
+    }
+
+    #countdown-number {
+        color: orange;
+        display: inline-block;
+        line-height: 80px;
+    }
+
+    svg {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 80px;
+        height: 80px;
+        transform: rotateY(-180deg) rotateZ(-90deg);
+    }
+
+        svg circle {
+            stroke-dasharray: 226px;
+            stroke-dashoffset: 0px;
+            stroke-linecap: round;
+            stroke-width: 4px;
+            stroke: orange;
+            fill: none;
+            animation: countdown 62s linear infinite forwards;
+        }
+
+    @@keyframes countdown {
+        from {
+            stroke-dashoffset: 0px;
+        }
+
+        to {
+            stroke-dashoffset: 226px;
+        }
+    }
+</style>
+    <div class="box-shadow">
+            <div class="container-fluid p-0">
+                <div class="row">
+                    <div class="col-xl-6 col-12">
+                        <div class="rightSide">
+                            <div class="titleBox">
+                                <h1>احراز هویت پیامکی</h1>
+                                <span></span>
+                            </div>
+                            <p class="hint">لطفاٌ کد پیامک شده به تلفن همراه را وارد کنید</p>
+                            <div id="countdown">
+                                <div id="countdown-number"></div>
+                                <svg>
+                                    <circle r="36" cx="40" cy="40"></circle>
+                                </svg>
+                            </div>
+                            <br />
+                            <div class="inputBox">
+                                <input id="txtMessageCode" class="text-box validate-number" maxlength="8" placeholder="کد پیامکی">
+                                <img src="~/Pic/mail.png" />
+                            </div>
+                            <br />
+                            <div style="display:flex;flex-direction:row;justify-content:space-between;">
+                                <button id="btnAcceptSmsCode" class="btn btn-outline-primary btn-lg">
+                                    ثبت / ادامه
+                                </button>
+                                <button class="btn-prev btn btn-outline-warning btn-lg">برگشت</button>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="col-xl-6 d-none d-xl-block" style="position: relative;">
+                        <partial name="IndexPartial/LeftSide" />
+                    </div>
+                </div>
+            </div>
+    </div>
+    <script>
+
+    $("#btnAcceptSmsCode").on("click", function () {
+        var row = $(this).closest(".box-shadow").parent();
+        resetEdit();
+        $("#btnAcceptSmsCode").attr("disabled", true);
+        $("#btnAcceptSmsCode").html('در حال پردازش <div class="spinner-grow text-primary" role="status"></div>')
+        var mobile = $("#txtManagerMobile").val();
+        var code = $("#txtMessageCode").val();
+        $.ajax({
+            url: "/Home/GenerateToken?mobile=" + mobile + "&code=" + code,
+            method: "",
+            success: function (res) {
+                ///////////////////////////////////////////////////////////////////////////////////////////////////////
+                token = "bearer " + res;
+                $.ajax({
+                    headers: {
+                        "Authorization" : token
+                    },
+                    url: "/Home/GetAllSchoolByManagerMobile",
+                    method: "POST",
+                    data: { mobile: schoolsManager.Mobile },
+                    success: function (res) {
+                        resetEdit();
+                        if (res != null && res.length > 0) {
+                            $(row).addClass("d-none");
+                            $(row).next().removeClass("d-none");
+                            $(window).scrollTop(0);
+                            schoolsInfo = JSON.parse(JSON.stringify(res));
+                            nextStep(4);
+                            $("#txtFullName").val(schoolsInfo[0].ManagerName);
+                            $("#txtNationalCode").val(schoolsInfo[0].ManagerNationalCode);
+                            
+                        }
+                        else {
+                            resetEdit();
+                            Swal.fire({
+                                title: '',
+                                html: "<span style='font-family:Behdad;'><span style='font-size:18px;'>هیچ اطلاعاتی دریافت نشد</span></span>",
+                                type: 'error',
+                                showCancelButton: false,
+                                showConfirmButton: false
+                            });
+                        }
+                    },
+                    error: function (err) {
+                        resetEdit();
+                        Swal.fire({
+                            title: '',
+                            html: "<span style='font-family:Behdad;'><span style='font-size:18px;'>درخواست با خطا مواجه شد</span></span>",
+                            type: 'error',
+                            showCancelButton: false,
+                            showConfirmButton: false
+                        });
+                    }
+                });
+                ///////////////////////////////////////////////////////////////////////////////////////////////////////
+            },
+            error: function (err) {
+                resetEdit();
+                Swal.fire({
+                    title: '',
+                    html: "<span style='font-family:Behdad;'><span style='font-size:18px;'>" + err.responseText + "</span></span>",
+                    type: 'error',
+                    showCancelButton: false,
+                    showConfirmButton: false,
+                });
+            }
+        });
+    });
+</script>
+</div>
+
+

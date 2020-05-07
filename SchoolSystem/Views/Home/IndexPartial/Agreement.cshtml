@@ -1,0 +1,111 @@
+﻿<div class="col-12">
+    <div class="box-shadow">
+
+        <div class="box-body">
+
+            <div class="container-fluid p-0">
+
+                <div class="row">
+
+                    <div class="col-12">
+
+                        <div style="text-align:center">
+                            <h1>قوانین و مقررات</h1>
+                        </div>
+
+                        <br />
+
+                        <p style="padding:20px 30px;text-align:justify;line-height:40px;">
+                            در راستای اجرای مفاد ماده 69 برنامه پنج ساله ششم توسعه اقتصادی، اجتماعی و فرهنگی جمهوری اسلامی ایران، وزارت ارتباطات و فناوری اطلاعات با همکاری وزارت آموزش و پرورش در نظر دارد اطلاعات مدارس کشور را جهت ایجاد دسترسی به شبکه ملی اطلاعات و هوشمندسازی مدارس به روزرسانی و تکمیل نمایند. لذا ضمن تشکر از همکاری شما درخصوص تکمیل، اصلاح و به روزرسانی اطلاعات مندرج در فرم های پیش رو، خواهشمند است در تکمیل فرم های اطلاعاتی دقت لازم را مبذول نمائید.
+                        </p>
+
+                        <div style="direction: ltr; text-align: center; color: red">
+
+                            <label class="el-checkbox" style="font-size:100%;">
+
+                                <span class="margin-r" style="font-weight:600;">مطالب فوق را مطالعه نموده و می پذیرم</span>
+
+                                <input id="chkAgreement" type="checkbox" name="check">
+
+                                <span class="el-checkbox-style  pull-right"></span>
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-12">
+                        <br />
+                        <div style="text-align: center">
+                            <button id="btnAgreement" class="btn btn-outline-primary btn-lg disabled-custom" disabled>
+                            پذیرش / ادامه
+                        </button>
+                        </div>
+
+                    </div>
+
+                    <div class="col-12">
+                        
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+        $("#chkAgreement").on("change", function() {
+
+            var value = $(this).prop("checked");
+
+            if (!value == true) {
+                $("#btnAgreement").addClass("disabled-custom");
+            } else {
+                $("#btnAgreement").removeClass("disabled-custom");
+            }
+
+            $("#btnAgreement").prop("disabled", !value);
+        });
+
+        $("#btnAgreement").on("click", function () {
+
+            nextStep(2);
+
+            var row = $(this).closest(".box-shadow").parent();
+            $(row).addClass("d-none");
+            $(row).next().removeClass("d-none");
+            $(window).scrollTop(0);
+
+            $.ajax({
+                url: '/Home/Captcha',
+                method: 'GET',
+                success: function(res) {
+                    $("#imgCaptcha").prop("src", res.image);
+                    $("#hiddenPublicKey").val(res.publicKey);
+
+                    $("#imgCaptchaWait").addClass("d-none");
+                    $("#parentCaptcha").removeClass("d-none");
+                },
+                error: function(err) {
+                    Swal.fire({
+                        title: '',
+                        html: "<span style='font-family:Behdad;'><span style='font-size:18px;'>دریافت کد امنیتی امکان پذیر نمی باشد</span></span>",
+                        type: 'error',
+                        showCancelButton: false,
+                        showConfirmButton: false
+                    });
+
+                }
+            });
+
+        });
+    </script>
+</div>

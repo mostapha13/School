@@ -1,0 +1,60 @@
+﻿@model SchoolDetails
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+
+    <title>سامانه به روز رسانی مدارس</title>
+
+    <partial name="HeaderReference" />
+
+</head>
+
+<body style="padding:0px;margin:0;background-color:rgb(244,245,250);background-image:url('/Iran-Flag.png');background-size:250px 250px;background-repeat: round;background-attachment:fixed;background-position:0px 50px;">
+
+    <input id="hiddenMainCode" type="hidden" value="@ViewBag.mainCode" />
+
+    <partial name="Header" />
+
+    <div class="container-fluid">
+
+        <div class="row ">
+            @await Html.PartialAsync("SchoolDetailsPartial/SchoolPreview", Model)
+        </div>
+
+    </div>
+
+    <script>
+
+        var mymap = null;
+
+        $(document).ready(function () {
+
+            $("#mapid").html("");
+
+            try {
+                mymap.remove();
+            } catch (e) {
+            }
+
+            mymap = L.map('mapid', { scrollWheelZoom: true }).setView([@Model.Lat, @Model.Lng], 15);
+
+            L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', { maxZoom: 20, subdomains: ['mt0', 'mt1', 'mt2', 'mt3'] }).addTo(mymap);
+
+            var marker = L.layerGroup().addTo(mymap);
+
+            L.marker([@Model.Lat, @Model.Lng]).addTo(marker);
+
+        });
+
+    </script>
+
+</body>
+
+</html>

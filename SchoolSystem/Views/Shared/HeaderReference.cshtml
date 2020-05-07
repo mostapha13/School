@@ -1,0 +1,295 @@
+﻿<link href="~/lib/Kendo UI/styles/kendo.common-bootstrap.min.css" rel="stylesheet" />
+<link href="~/lib/Kendo UI/styles/kendo.mobile.all.min.css" rel="stylesheet" />
+<link href="~/lib/Kendo UI/styles/kendo.rtl.min.css" rel="stylesheet" />
+<link href="~/lib/Kendo UI/styles/kendo.bootstrap.min.css" rel="stylesheet" />
+
+
+
+@*<script src="~/lib/Kendo UI/js/jquery.min.js"></script>*@
+<script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+<script src="~/lib/Kendo UI/js/jszip.min.js"></script>
+<script src="~/lib/Kendo UI/js/kendo.all.min.js"></script>
+<script src="~/lib/Kendo UI/js/kendo.aspnetmvc.min.js"></script>
+<link href="~/lib/Kendo UI/styles/kendo.rtl.min.css" rel="stylesheet" />
+<script src="~/lib/Kendo UI/js/messages/kendo.messages.fa-IR.min.js"></script>
+<script src="/lib/Kendo UI/js/cultures/kendo.culture.fa-IR.min.js"></script>
+
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+<link href="~/leaflet/leaflet.css" rel="stylesheet" />
+<script src="~/leaflet/leaflet.js"></script>
+
+<link href="~/lib/sweetalert/sweetalert2.min.css" rel="stylesheet" />
+<script src="~/lib/sweetalert/sweetalert2.min.js"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<link href="~/lib/el-checkbox-master/dist/checkbox.min.css" rel="stylesheet" />
+<link href="~/css/global.css" rel="stylesheet" />
+
+
+<link href="/lib/Kendo UI/Calender/dist/js/JalaliJSCalendar-1.4/skins/aqua/theme.css" rel="stylesheet" />
+ 
+
+<script src="/lib/Kendo UI/Calender/dist/js/kendo.fa-IR.js"></script>
+
+<script src="/lib/Kendo UI/Calender/dist/js/JalaliJSCalendar-1.4/calendar.js"></script>
+<script src="/lib/Kendo UI/Calender/dist/js/JalaliJSCalendar-1.4/calendar-setup.js"></script>
+<script src="/lib/Kendo UI/Calender/dist/js/JalaliJSCalendar-1.4/lang/calendar-fa.js"></script>
+<script src="/lib/Kendo UI/Calender/dist/js/JalaliJSCalendar-1.4/jalali.js"></script>
+<script src="/lib/Kendo UI/Calender/dist/js/dateFilter.js"></script>
+
+
+<script>
+    kendo.culture("fa-IR");
+</script>
+
+
+
+
+<style>
+
+    @@font-face {
+        font-family: Behdad;
+        src: url("/css/Font/Behdad.eot");
+        src: url("/css/Font/Behdad.eot?#iefix") format("Font/Behdad-opentype"), url("/css/Font/Behdad.woff") format("woff"), url("/css/Font/Behdad.ttf") format("truetype");
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    .SchoolStatus {
+        padding: 2px;
+        border-radius: 5px 5px;
+        text-align: center;
+        display: block;
+        margin: auto;
+        color: white;
+        font-size: 13px;
+    }
+
+    .area-box {
+        border: 2px solid #D0CCE4;
+        background: #F8F8F8;
+        border-radius: 25px;
+        padding-right: 9px;
+        padding: 10px;
+        font-size: 15px;
+        font-family: Behdad;
+        direction: rtl;
+        width: 100%;
+        height: 100%;
+        outline: 0;
+    }
+
+    .item-box-container {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+    }
+
+    .item-box {
+        width: 100%;
+        position: relative;
+    }
+
+    .item-box-screen-text-box {
+        position: absolute;
+        background-color: grey;
+        opacity: 0.2;
+        width: 100%;
+        height: 46px;
+        border-radius: 25px;
+    }
+
+    .item-box-screen-area-box {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+
+    .item-box-screen-select-box {
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0.1);
+        width: 100%;
+        height: 50px;
+        border-radius: 5px 5px;
+        z-index: 1;
+        border-radius: 25px;
+    }
+
+    .box-header {
+        font-size: 20px;
+        font-weight: 500;
+        text-align: center;
+        background-color: rgb(0,125,255);
+        border-radius: 10px 10px 0px 0px;
+        color: white;
+        padding: 20px;
+    }
+
+    .box-body {
+        padding: 3vw;
+    }
+
+    .box-shadow {
+        -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.3);
+        -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.3);
+        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.3);
+        background-color: white;
+        border-radius: 10px 10px;
+        width: 100%;
+        margin: auto;
+        font-family: Behdad;
+        @* margin-top: 15px;
+        margin-bottom: 15px; *@
+        max-width: 910px;
+        margin: auto;
+    }
+
+@*
+    @@media screen and (min-width: 600px) {
+        .box-shadow {
+            width: 75%;
+        }
+    } *@
+
+    .lable {
+        display: block;
+        padding-bottom: 5px;
+        padding-top: 15px;
+        font-weight: 600;
+        text-align: right;
+    }
+
+    select2 {
+        height: 60px !important;
+    }
+
+    .select2-selection__arrow {
+        margin-top: 10px;
+    }
+
+    .select2-selection {
+        height: 50px !important;
+        padding-top: 10px !important;
+    }
+
+    .select2-results {
+        text-align: right;
+    }
+
+    .input-file {
+        width: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        visibility: hidden;
+    }
+
+    .div-picture {
+        height: 200px;
+        width: 100%;
+        border: 1px solid gray;
+        border-radius: 5px 5px;
+        padding: 10px;
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        background-position: center;
+    }
+
+    .disabled-custom {
+        color: rgb(50,50,50) !important;
+        border-color: rgb(50,50,50) !important;
+        cursor: not-allowed !important;
+    }
+</style>
+
+<style>
+
+    .k-rtl .k-grid-header .k-header {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .k-header.k-grid-toolbar {
+        text-align: right;
+    }
+
+
+    ul.k-list.k-reset, .k-filter-help-text,
+    span.k-dropdown-wrap > span.k-input,
+    .k-list-optionlabel {
+        direction: rtl;
+        text-align: right;
+    }
+
+ 
+
+ 
+
+   
+</style>
+
+
+<style>
+
+    .step-line > li {
+        font-size: 1.5vw;
+        font-family: Behdad;
+        width: 3vw;
+        height: 3vw;
+        text-align: center;
+        line-height: 3.2vw;
+        border-radius: 3vw;
+        background: #f99a27;
+        margin: 0 1.5vw;
+        display: inline-block;
+        color: white;
+        position: relative;
+    }
+
+        .step-line > li::before {
+            content: '';
+            position: absolute;
+            top: 1.3vw;
+            right: -4vw;
+            width: 4vw;
+            height: .5vw;
+            background: #f59826;
+            z-index: -1;
+        }
+
+        .step-line > li:first-child::before {
+            display: none;
+        }
+
+    .step-line > .active {
+        background: #f99a27;
+        border: 4px solid #FFF;
+        line-height: 3vw;
+        box-shadow: -1px 2px 3px #888;
+    }
+
+        .step-line > .active ~ li {
+            background: #fbc889;
+            border: 2px solid #FFF;
+        }
+
+            .step-line > .active ~ li::before {
+                background: #f9f9f9;
+                border: 1px solid #bfaaaa;
+                box-shadow: -1px 1px 3px #afafaf;
+            }
+
+
+    .box-shadow {
+        max-width: 1230px !important;
+    }
+</style>
+

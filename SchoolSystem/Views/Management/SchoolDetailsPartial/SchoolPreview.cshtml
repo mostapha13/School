@@ -1,0 +1,356 @@
+﻿@model SchoolDetails
+<style>
+    .lable {
+        display: block;
+        font-weight: 600;
+    }
+
+    .cell-item {
+        border: 1px solid gray;
+        padding: 5px;
+        font-size: 16px;
+        line-height:30px;
+    }
+</style>
+
+<div class="box-shadow">
+
+    <div class="box-header">
+        مشخصات مدرسه
+    </div>
+
+    <div class="box-body">
+
+        <div class="container-fluid p-0 text-right" style="direction:rtl;">
+
+            <div class="row">
+
+                <div class="col-4">
+
+                    <label class="lable">کد مدرسه</label>
+                    <div id="SchoolCode" class="cell-item" style="background-color:@(Model.SchoolCodeEdit ? "yellow":"white")">@Model.SchoolCode&nbsp;</div>
+
+                </div>
+
+                <div class="col-4">
+                    <label class="lable">عنوان مدرسه</label>
+                    <div class="cell-item" style="background-color:@(Model.NameEdit ? "yellow":"white")">@Model.Name&nbsp;</div>
+
+                </div>
+
+                <div class="col-4">
+                    <label class="lable">نوع</label>
+                    <div class="cell-item" style="background-color:@(Model.SubSetEdit ? "yellow":"white")">@Model.SubSet&nbsp;</div>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-4">
+
+                    <label class="lable">جنسیت</label>
+                    <div class="cell-item" style="background-color:@(Model.GenderEdit ? "yellow":"white")">@Model.Gender&nbsp;</div>
+
+                </div>
+
+                <div class="col-4">
+                    <label class="lable">نوبت تحصیلی</label>
+                    <div class="cell-item">@Model.StudyTime&nbsp;</div>
+
+                </div>
+
+                <div class="col-4">
+                    <label class="lable">دوره تحصیلی</label>
+                    <div class="cell-item" style="background-color:@(Model.PeriodEdit ? "yellow":"white")">@Model.Period&nbsp;</div>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-4">
+
+                    <label class="lable">تعداد پایه تحصیلی</label>
+                    <div class="cell-item" style="background-color:@(Model.BasicCountEdit ? "yellow":"white")">@Model.BasicCount&nbsp;</div>
+
+                </div>
+
+                <div class="col-4">
+                    <label class="lable">تعداد معلم</label>
+                    <div class="cell-item" style="background-color:@(Model.TeacherCountEdit ? "yellow":"white")">@Model.TeacherCount&nbsp;</div>
+
+                </div>
+
+                <div class="col-4">
+                    <label class="lable">تعداد دانش آموزان</label>
+                    <div class="cell-item" style="background-color:@(Model.StudyTimeEdit ? "yellow":"white")">@Model.StudentCount&nbsp;</div>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-4">
+
+                    <label class="lable">تلفن 1</label>
+                    <div class="cell-item" style="background-color:@(Model.Tell1Edit ? "yellow":"white")">@Model.Tell1&nbsp;</div>
+
+                </div>
+
+                <div class="col-4">
+                    <label class="lable">تلفن 2</label>
+                    <div class="cell-item" style="background-color:@(Model.Tell2Edit ? "yellow":"white")">@Model.Tell2&nbsp;</div>
+
+                </div>
+
+                <div class="col-4">
+                    <label class="lable">تلفن 3</label>
+                    <div class="cell-item" style="background-color:@(Model.Tell3Edit ? "yellow":"white")">@Model.Tell3&nbsp;</div>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-4">
+
+                    <label class="lable">کدپستی</label>
+                    <div class="cell-item" style="background-color:@(Model.PostalCodeEdit ? "yellow":"white")">@Model.PostalCode&nbsp;</div>
+
+                </div>
+
+                <div class="col-4">
+                    <label class="lable">اینترنت / سیار</label>
+                    <div class="cell-item" style="background-color:@(Model.MobileInternetEdit ? "yellow":"white")">@Model.MobileInternet&nbsp;</div>
+
+                </div>
+
+                <div class="col-4">
+                    <label class="lable">اینترنت / ثابت</label>
+                    <div class="cell-item" style="background-color:@(Model.ADSLEdit ? "yellow":"white")">@Model.ADSL&nbsp;</div>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-4">
+                    <label class="lable">عکس 1</label>
+                    <div style="height: 200px;width: 100%;border: 1px solid gray;border-radius: 5px 5px;padding: 10px;background-repeat: no-repeat;background-size: 100% 100%;background-position: center;background-image:url(@Model.Image1);"></div>
+                </div>
+
+                <div class="col-4">
+                    <label class="lable">عکس 2</label>
+                    <div style="height: 200px;width: 100%;border: 1px solid gray;border-radius: 5px 5px;padding: 10px;background-repeat: no-repeat;background-size: 100% 100%;background-position: center;background-image:url(@Model.Image2);"></div>
+                </div>
+
+                <div class="col-4">
+                    <label class="lable">عکس 3</label>
+                    <div style="height: 200px;width: 100%;border: 1px solid gray;border-radius: 5px 5px;padding: 10px;background-repeat: no-repeat;background-size: 100% 100%;background-position: center;background-image:url(@Model.Image3);"></div>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-12">
+
+                    <label class="lable">توضیحات</label>
+                    <div class="cell-item" style="background-color:@(Model.CommentEdit ? "yellow":"white")">@Model.Comment&nbsp;</div>
+
+
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-12">
+
+                    <label class="lable" style="background-color:@(Model.LatEdit || Model.LngEdit ? "yellow":"white")">موقعیت مدرسه روی نقشه</label>
+                    <div style="margin:auto;height:500px;width:100%;" id="mapid"></div>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-4">
+
+                    <label class="lable">استان</label>
+                    <div class="cell-item" style="background-color:@(Model.OstanNameEdit ? "yellow":"white")">@Model.OstanName&nbsp;</div>
+
+                </div>
+
+                <div class="col-4">
+                    <label class="lable">شهرستان</label>
+                    <div class="cell-item" style="background-color:@(Model.ShahrestanNameEdit ? "yellow":"white")">@Model.ShahrestanName&nbsp;</div>
+
+                </div>
+
+                <div class="col-4">
+                    <label class="lable">بخش</label>
+                    <div class="cell-item" style="background-color:@(Model.BakhshNameEdit ? "yellow":"white")">@Model.BakhshName&nbsp;</div>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-4">
+
+                    <label class="lable">دهستان</label>
+                    <div class="cell-item" style="background-color:@(Model.DehestanNameEdit ? "yellow":"white")">@Model.DehestanName&nbsp;</div>
+
+                </div>
+
+                <div class="col-4">
+                    <label class="lable">روستا</label>
+                    <div class="cell-item" style="background-color:@(Model.AbadiNameEdit ? "yellow":"white")">@Model.AbadiName&nbsp;</div>
+
+                </div>
+
+                <div class="col-4">
+                    <label class="lable">کد آماری</label>
+                    <div class="cell-item" style="background-color:@(Model.AmarcodeEdit ? "yellow":"white")">@Model.Amarcode&nbsp;</div>
+
+                </div>
+
+            </div>
+            <div class="row">
+
+                <div class="col-4">
+
+                    <label class="lable">کد منطقه</label>
+                    <div class="cell-item" style="background-color:@(Model.AreaCodeEdit ? "yellow":"white")">@Model.AreaCode&nbsp;</div>
+
+                </div>
+
+                <div class="col-4">
+                    <label class="lable">نام منطقه</label>
+                    <div class="cell-item" style="background-color:@(Model.AreaNameEdit ? "yellow":"white")">@Model.AreaName&nbsp;</div>
+
+                </div>
+
+                <div class="col-4">
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-12">
+
+                    <label class="lable">آدرس</label>
+                    <div class="cell-item" style="background-color:@(Model.AddressEdit ? "yellow":"white")">@Model.Address&nbsp;</div>
+
+                </div>
+
+            </div>
+
+
+            <div class="row">
+                <div class="col-12">
+                    <br />
+                    <br />
+                    <div style="display:flex;flex-direction:row-reverse;justify-content:space-between;">
+                        <button id="btnConfirm" class="btn btn-lg btn-outline-success">تایید</button>
+                        <button id="btnReject" class="btn btn-lg btn-outline-danger">عدم تایید</button>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    $("#btnConfirm").on("click", function () {
+
+        Swal.fire({
+            title: "",
+            html: "<span style='font-family:Behdad;'><span style='font-size:18px;'>" + "آیا برای تایید مطمئن هستید؟" + "</span></span>",
+            icon: 'warning',
+            showCancelButton: true,
+            focusCancel:true,
+            cancelButtonText : "خیر",
+            confirmButtonText: "بله",
+        }).then((result) => {
+            if (result.value) {
+
+                var mainCode = $("#hiddenMainCode").val();
+                schoolConfirm(mainCode, 4);
+
+            }
+        })
+
+    });
+
+    $("#btnReject").on("click", function () {
+
+        Swal.fire({
+            title: "",
+            html: "<span style='font-family:Behdad;'><span style='font-size:18px;'>" + "آیا برای عدم تایید مطمئن هستید؟" + "</span></span>",
+            icon: 'warning',
+            showCancelButton: true,
+            focusCancel: true,
+            cancelButtonText: "خیر",
+            confirmButtonText: "بله",
+        }).then((result) => {
+            if (result.value) {
+                var mainCode = $("#hiddenMainCode").val();
+                schoolConfirm(mainCode, 5);
+            }
+        })
+
+    });
+
+    function schoolConfirm(mainCode, status) {
+
+        var t = localStorage.getItem("Token");
+
+        $.ajax({
+            url: "/Management/SchoolConfirm?mainCode=" + mainCode + "&status=" + status,
+            method: "POST",
+            headers: {
+                "Authorization": t
+            },
+            success: function (res) {
+                Swal.fire({
+                    title: '',
+                    html: "<span style='font-family:Behdad'><span style='font-size:15px;'>عملیات موفقیت انجام شد</span></span>",
+                    type: 'success',
+                    showCancelButton: false,
+                    showConfirmButton: true,
+                    confirmButtonText: "بستن"
+                });
+            },
+            error: function (err) {
+                Swal.fire({
+                    title: '',
+                    html: "<span style='font-family:Behdad;'><span style='font-size:18px;'>عملیات خطا مواجه شد</span></span>",
+                    type: 'error',
+                    showCancelButton: false,
+                    showConfirmButton: false
+                });
+            }
+        });
+    }
+
+</script>
+
+

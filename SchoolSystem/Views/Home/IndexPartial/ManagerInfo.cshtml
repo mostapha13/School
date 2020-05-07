@@ -1,0 +1,192 @@
+﻿
+
+
+<div class="col-12 d-none">
+    <style>
+
+    input[type="checkbox"] {
+        display: none;
+    }
+
+        input[type="checkbox"] + label {
+            display: block;
+            position: relative;
+            padding-left: 35px;
+            margin-bottom: 20px;
+            font: 14px/20px 'Open Sans', Arial, sans-serif;
+            color: #ddd;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+            input[type="checkbox"] + label:last-child {
+                margin-bottom: 10px;
+            }
+
+            input[type="checkbox"] + label:before {
+                content: '';
+                display: block;
+                width: 30px;
+                height: 30px;
+                border: 3px solid rgb(70,70,70);
+                position: absolute;
+                left: 0;
+                top: 0;
+                opacity: .6;
+                -webkit-transition: all .12s, border-color .08s;
+                transition: all .12s, border-color .08s;
+            }
+
+        input[type="checkbox"]:checked + label:before {
+            width: 15px;
+            top: -5px;
+            left: 10px;
+            border-radius: 0;
+            opacity: 1;
+            border-top-color: transparent;
+            border-left-color: transparent;
+            -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
+
+    .manager-row-item {
+        background-color: rgb(226,227,229);
+        border: 5px solid rgb(214,216,219);
+        display: flex;
+        padding: 0px;
+        margin-top: 5px;
+    }
+
+    .manager-row-item-left {
+        padding: 15px;
+        width: 100%;
+        overflow: hidden;
+        text-align: right;
+        direction: rtl;
+    }
+
+    .manager-row-item-right {
+        width: 70px;
+        background-color: rgb(214,216,219);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .manager-row-item-right-checkBox {
+        height: 30px;
+        width: 30px;
+    }
+</style>
+    <div class="box-shadow">
+        <div class="container-fluid p-0">
+            <div class="row">
+                <div class="col-xl-6 col-12">
+                    <div class="rightSide">
+                        <div class="titleBox">
+                            <h1>مشخصات مدیر / نماینده</h1>
+                            <span></span>
+                        </div>
+                        <p class="hint">
+                            اطلاعات نمایش داده شده بر مبنای اطلاعات دریافتی از وزارت آموزش و پرورش می باشد چنانچه این اطلاعات با مشخصات هویتی شما مغایرت دارد با کلیک بر گزینه "ویرایش" اصلاح و سپس گزینه "ثبت / ادامه" را انتخاب فرمائید.
+                        </p>
+                        <lable class="lable">نام و نام خانوادگی</lable>
+                        <div class="item-box-container">
+                            <div class="item-box">
+                                <div class="item-box-screen-text-box"></div>
+                                <input id="txtFullName" type="text" class="text-box text-box-margin-top" value="یونس حاجی زاده" />
+                            </div>
+                            <button class="btn-edit btn btn-sm btn-outline-primary">ویرایش</button>
+                        </div>
+                        
+                        <lable class="lable">کد ملی</lable>
+                        <div class="item-box-container">
+                            <div class="item-box">
+                                <div class="item-box-screen-text-box"></div>
+                                <input id="txtNationalCode" type="text" class="text-box text-box-margin-top validate-number" value="381594122" maxlength="11" />
+                            </div>
+                            <button class="btn-edit btn btn-sm btn-outline-primary">ویرایش</button>
+                        </div>
+
+                        <div style="display:flex;flex-direction:row-reverse;justify-content:space-between; margin-top: 2rem">
+                            <button class="btn-prev btn btn-outline-warning btn-lg">برگشت</button>
+                            <button id="btnAcceptManager" class="btn btn-outline-primary btn-lg">ثبت / ادامه</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 d-none d-xl-block" style="position: relative;">
+                     <partial name="IndexPartial/LeftSide" />
+                </div>
+            </div>
+        </div>
+    </div>
+    
+<script>
+    $("#chkFullName").on("change", function () {
+
+        var dis = $("#txtFullName").attr("disabled");
+        $("#txtFullName").attr("disabled", !dis);
+
+    });
+
+    $("#chkNationalCode").on("change", function () {
+
+        var dis = $("#txtNationalCode").attr("disabled");
+        $("#txtNationalCode").attr("disabled", !dis);
+
+    });
+
+    $("#btnAcceptManager").on("click", function () {
+
+        gridData = [];
+
+        $.each(schoolsInfo,function (index,item) {
+            gridData.push({
+                Code: item.MainCode,
+                Name: item.Name,
+                //AmarCode : item.AmarCode,
+                Ostan: item.Ostan_Name,
+                IsCity: item.IsCity,
+                //Shahrestan: item.Shahrestan_Name,
+                //Bakhsh: item.Bakhsh_Name,
+                //Dehestan: item.Dehestan_Name,
+                //Abadi : item.Abadi_Name,
+                Status: item.Status
+            })
+        });
+
+        var row = $(this).closest(".box-shadow").parent();
+
+        $(row).addClass("d-none");
+
+        $(row).next().removeClass("d-none");
+        $(window).scrollTop(0);
+        nextStep(5);
+        fillSchoolGrid(gridData);
+
+    });
+
+
+    </script>
+</div>
+
+@* <div class="box-shadow">
+    <div class="container-fluid p-0">
+        <div class="row">
+            <div class="col-xl-6">
+               <div class="rightSide">
+                    <div class="titleBox">
+                        <h1>ورود به سامانه بروزرسانی اطلاعت مدارس</h1>
+                        <span></span>
+                    </div>
+               </div>
+            </div>
+            <div class="col-xl-6 d-none d-xl-block" style="position: relative;">
+               <partial name="IndexPartial/LeftSide" />
+            </div>
+        </div>
+    </div>
+</div> *@
+
